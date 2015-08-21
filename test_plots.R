@@ -1,6 +1,6 @@
 require(graphics); require(grDevices)
 
-setwd("C:/Users/David Hayman/Dropbox/marsden/ORION__sample_results")
+#setwd("C:/Users/David Hayman/Dropbox/marsden/ORION__sample_results")
 
 data<-read.csv("06032015_run_mfp_scan_v5.csv",header=T,row.names=1)
 colnames(data) <- c(#"UniqueID",
@@ -68,7 +68,7 @@ colnames(data) <- c(#"UniqueID",
 # heatmap(data)
 # heatmap(data,na.rm=T)
 
-data<-read.csv("marsden_test.csv",header=T,row.names=1)
+# data<-read.csv("marsden_test.csv",header=T,row.names=1)
 # data<-read.csv("marsden_test_1.csv",header=T,row.names=1)
 # data<-read.csv("marsden_test_2.csv",header=T,row.names=1)
 # data<-read.csv("marsden_test_3.csv",header=T,row.names=1)
@@ -94,54 +94,54 @@ df1<-data[!(rowSums(data[,55:58])>0),]
 #              data[,3]-data[,4],
 #              data[,4]-data[,4])
 
-df2 <- cbind(data[,1]-data[,14],
-             data[,2]-data[,14],
-             data[,3]-data[,14],
-             data[,4]-data[,14],
-             data[,5]-data[,14],
-             data[,6]-data[,14],
-             data[,7]-data[,14],
-             data[,8]-data[,14],
-             data[,9]-data[,14],
-             data[,10]-data[,14],
-             data[,11]-data[,14],
-             data[,12]-data[,14],
-             data[,13]-data[,14],
-             data[,14]-data[,14])
-
-df2[df2<0] <- 0
-
-
-colnames(df2)<-colnames(data)
-
-#heatmap(df2)
-
-df2[df2 == 0] <- NA
-
-df2 <- df2[,colSums(is.na(df2))<nrow(df2)]
-df2 <- df2[!rowSums(is.na(df2)) == ncol(df2),]
-
-df2[is.na(df2)] <- 0
-#df2<-df2[,1:13]
-summary(df2)
-
-# df2<-data.matrix(df2)
-
-# heatmap(df2)
-
-test<-df2[ order(-df2[,1]), ]
-test<-test[-c(1),]
-# heatmap(test)
-# heatmap(test,Colv=NA,labRow="")
-
-# heatmap(test,Colv=NA,
-#         labRow="",#revC=T,
-#         margins=c(8,7),
-#         ColSideColors = c(rep("lightblue",3),
-#                            rep("blue",5),
-#                            rep("darkblue",5)),
-#         cexCol=1.8)
-## # 19695 # hits
+# df2 <- cbind(data[,1]-data[,14],
+#              data[,2]-data[,14],
+#              data[,3]-data[,14],
+#              data[,4]-data[,14],
+#              data[,5]-data[,14],
+#              data[,6]-data[,14],
+#              data[,7]-data[,14],
+#              data[,8]-data[,14],
+#              data[,9]-data[,14],
+#              data[,10]-data[,14],
+#              data[,11]-data[,14],
+#              data[,12]-data[,14],
+#              data[,13]-data[,14],
+#              data[,14]-data[,14])
+# 
+# df2[df2<0] <- 0
+# 
+# 
+# colnames(df2)<-colnames(data)
+# 
+# #heatmap(df2)
+# 
+# df2[df2 == 0] <- NA
+# 
+# df2 <- df2[,colSums(is.na(df2))<nrow(df2)]
+# df2 <- df2[!rowSums(is.na(df2)) == ncol(df2),]
+# 
+# df2[is.na(df2)] <- 0
+# #df2<-df2[,1:13]
+# summary(df2)
+# 
+# # df2<-data.matrix(df2)
+# 
+# # heatmap(df2)
+# 
+# test<-df2[ order(-df2[,1]), ]
+# test<-test[-c(1),]
+# # heatmap(test)
+# # heatmap(test,Colv=NA,labRow="")
+# 
+# # heatmap(test,Colv=NA,
+# #         labRow="",#revC=T,
+# #         margins=c(8,7),
+# #         ColSideColors = c(rep("lightblue",3),
+# #                            rep("blue",5),
+# #                            rep("darkblue",5)),
+# #         cexCol=1.8)
+# ## # 19695 # hits
 
 test<-df1[,1:54]
 heatmap(test,Colv=NA,labRow=NA,margins=c(12,7),cexCol=0.5)
@@ -149,10 +149,10 @@ heatmap(test,Colv=NA,labRow=NA,margins=c(12,7),cexCol=0.5)
 heatmap(test,Colv=NA,
         labRow=NA,col=terrain.colors(20, alpha = 1),
         margins=c(12,7),
-        ColSideColors = c(rep("lightgrey",3),
-                          rep("grey",5),
-                          rep("darkgrey",5)),
-        cexCol=1.8)
+#         ColSideColors = c(rep("lightgrey",3),
+#                           rep("grey",5),
+#                           rep("darkgrey",5)),
+        cexCol=0.6)
 
 res<-rownames(test)
  # write.csv(res,"res.csv")
@@ -235,10 +235,67 @@ p+ theme(text = element_text(size=20),
       axis.text.x = element_text(angle=90, vjust=1,colour="grey20"))+
   scale_fill_hue(c=90, l=55)+ scale_fill_brewer(palette="Set1")
 
-#  ggplot(data=vres, aes(x=variable,y=value, fill=variable)) + 
-#    geom_bar(position='dodge')+
-#    facet_wrap( ~virus , nrow=1)+
-#   theme(axis.title.x=element_blank())
+
+colnames = c( "human_3",
+              "human_2",
+              "gorilla_4",
+              "cattle_60",
+              "cattle_56",
+              "cattle_62",
+              "human_1",
+              "gorilla_44",
+              "gorilla_24",
+              "gorilla_14",
+              "gorilla_34",
+              "cattle_52",
+              "cattle_48")
+
+# calculate the means
+means = lapply(colnames, function(name) { apply(vr[,grep(name, colnames(vr))], 1, mean) })
+
+# build the result
+result = do.call(cbind, means)
+result = as.data.frame(t(result))
+rownames(result) = colnames
+
+### KEEP TO REMOVE HAs IF NEEDED
+result[result == 0]<-NA
+result <- result[rowSums(is.na(result))<ncol(result),]
+result
+
+colnames(result)<-c("Microvirus","Picobirnavirus",
+                    "D - picobirnavirus","Hepatitis C virus",
+                    "Lassa virus","Hyposoter fugitivus ichnovirus")
+result<-result[,2:5]
+
+vs_r<-melt(t(result))
+colnames(vs_r)<-c("virus","host","reads")
+
+
+p <- qplot(x=virus, y=reads, fill=host,
+           data=vs_r, geom="bar", stat="identity",
+           position="dodge",ylab="reads")
+
+p+theme(text = element_text(size=20),
+        axis.text.x = element_text(angle=90, vjust=1,colour="grey20"))+
+  scale_fill_hue(c=90, l=55)+ scale_fill_brewer(palette="Set1")
+
+
+p <- qplot(x=virus, y=reads, fill=host,
+           data=vs_r, geom="bar", stat="identity",
+           position="stack",ylab="reads",asp=1)
+
+p+theme(text = element_text(size=20),
+        axis.text.x = element_text(angle=90, vjust=1,colour="grey20"))+
+  scale_fill_hue(c=90, l=55)+ scale_fill_brewer(palette="Set1")
+
+
+  ggplot(data=vs_r, aes(x=host,y=reads, fill=host)) + 
+    geom_bar(position='dodge',stat="identity")+
+    facet_wrap( ~virus , nrow=1)+
+   theme(#axis.title.x=element_blank(),
+     axis.text.x = element_text(angle = 90,colour = "grey10"),
+     text = element_text(size=20))
 
 # vres[order(vres$virus),] 
 # 
