@@ -144,15 +144,38 @@ df1<-data[!(rowSums(data[,55:58])>0),]
 # ## # 19695 # hits
 
 test<-df1[,1:54]
-heatmap(test,Colv=NA,labRow=NA,margins=c(12,7),cexCol=0.5)
+# heatmap(test,Colv=NA,labRow=NA,margins=c(12,7),cexCol=0.5)
+colnames = c( "human_3",
+              "human_2",
+              "gorilla_4",
+              "cattle_60",
+              "cattle_56",
+              "cattle_62",
+              "human_1",
+              "gorilla_44",
+              "gorilla_24",
+              "gorilla_14",
+              "gorilla_34",
+              "cattle_52",
+              "cattle_48")
 
-heatmap(test,Colv=NA,
-        labRow=NA,col=terrain.colors(20, alpha = 1),
-        margins=c(12,7),
-#         ColSideColors = c(rep("lightgrey",3),
-#                           rep("grey",5),
-#                           rep("darkgrey",5)),
-        cexCol=0.6)
+# calculate the means
+means = lapply(colnames, function(name) { apply(test[,grep(name, colnames(test))], 1, mean) })
+
+# build the result
+result = do.call(cbind, means)
+#result = as.data.frame(t(result))
+colnames(result) = colnames
+# 
+m <- result[,order(colnames(result))]
+
+heatmap(m,Colv=NA,
+  labRow=NA,col=terrain.colors(20, alpha = 1),
+         margins=c(12,7),
+         ColSideColors = c(rep("grey80",5),
+                           rep("grey45",5),
+                           rep("grey10",3)),
+         cexCol=1.8)
 
 res<-rownames(test)
  # write.csv(res,"res.csv")
@@ -297,6 +320,15 @@ p+theme(text = element_text(size=20),
    theme( axis.text.x = element_text(angle = 90,colour = "grey10"),
      text = element_text(size=20))
 
+  colnames(vs_r)[2]<-c("host_id")
+  ggplot(data=vs_r, aes(x=host_id,y=reads, fill=host_id)) +
+    labs(y="mean reads") +
+    geom_bar(position='dodge',stat="identity")+
+    facet_wrap( ~virus , nrow=1)+
+    theme( axis.text.x = element_blank(),
+           axis.title.x = element_blank(),
+           text = element_text(size=20))
+  
 # vres[order(vres$virus),] 
 # 
 # ##################
