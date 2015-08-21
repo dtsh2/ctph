@@ -173,7 +173,7 @@ virusresults<-test[grep("virus",res),] # returns those with 'virus' in
 #                           #"Ichnovirus (Hyposoter fugitivus)")
 
 virusres<-as.data.frame(virusresults)
-virusres$virus<-rownames(virusres)
+ virusres$virus<-rownames(virusres)
 
 virusres<-virusres[-c(1,6),]
   
@@ -251,7 +251,7 @@ colnames = c( "human_3",
               "cattle_48")
 
 # calculate the means
-means = lapply(colnames, function(name) { apply(vr[,grep(name, colnames(vr))], 1, mean) })
+means = lapply(colnames, function(name) { apply(virusresults[,grep(name, colnames(virusresults))], 1, mean) })
 
 # build the result
 result = do.call(cbind, means)
@@ -290,11 +290,11 @@ p+theme(text = element_text(size=20),
   scale_fill_hue(c=90, l=55)+ scale_fill_brewer(palette="Set1")
 
 
-  ggplot(data=vs_r, aes(x=host,y=reads, fill=host)) + 
+  ggplot(data=vs_r, aes(x=host,y=reads, fill=host)) +
+    labs(y="Mean reads") +
     geom_bar(position='dodge',stat="identity")+
     facet_wrap( ~virus , nrow=1)+
-   theme(#axis.title.x=element_blank(),
-     axis.text.x = element_text(angle = 90,colour = "grey10"),
+   theme( axis.text.x = element_text(angle = 90,colour = "grey10"),
      text = element_text(size=20))
 
 # vres[order(vres$virus),] 
