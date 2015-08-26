@@ -94,7 +94,14 @@ means = lapply(colnames, function(name) { apply(test[,grep(name, colnames(test))
 result = do.call(cbind, means)
 #result = as.data.frame(t(result))
 colnames(result) = colnames
+
+# # 
+# result[which(result==0)] = NA
+# df2<-result[!complete.cases(result),]
+# heatmap(df2,Colv=NA,labRow=NA)
 # 
+# df2[is.na(df2)] <- 0
+
 m <- result[,order(colnames(result))]
 
 heatmap(m,Colv=NA,
@@ -109,19 +116,6 @@ res<-rownames(test)
  # write.csv(res,"res.csv")
 
 virusresults<-test[grep("virus",res),] # returns those with 'virus' in
-
-# virusresults<-test[c(300, # rift valley fever virus - 1 gorilla (4), 3 cattle (1:3) 
-# 1016, # picobirnavirus 1 cow (2) # novel - see map : http://www.hindawi.com/journals/bmri/2014/780752/
-# 1021, # Dromedary picobirnavirus 1 cow (2)
-# 1069#, # Lassa virus 1 human (2)
-# # 1147 # Hyposoter fugitivus ichnovirus
-# ) ,]
-##
-# rownames(virusresults)<-c("RVFV",#"RVF virus",
-#                           "PV",#"Picobirnavirus",
-#                           "PV(D)",#"Picobirnavirus (D)",
-#                           "LFV")#'Lassa virus')#,
-#                           #"Ichnovirus (Hyposoter fugitivus)")
 
 virusres<-as.data.frame(virusresults)
  virusres$virus<-rownames(virusres)
