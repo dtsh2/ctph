@@ -64,84 +64,12 @@ colnames(data) <- c(#"UniqueID",
   "Ctl-Pur_S28_R2")
 
 # 
-# data<-data.matrix(data)
-# heatmap(data)
-# heatmap(data,na.rm=T)
-
-# data<-read.csv("marsden_test.csv",header=T,row.names=1)
-# data<-read.csv("marsden_test_1.csv",header=T,row.names=1)
-# data<-read.csv("marsden_test_2.csv",header=T,row.names=1)
-# data<-read.csv("marsden_test_3.csv",header=T,row.names=1)
 data<-data.matrix(data)
-# heatmap(data)
 # heatmap(data,na.rm=T)
 
 ## to remove the contamination
 df1<-data[!(rowSums(data[,55:58])>0),]
-
-# df2 <- cbind(data[,1]-data[,10],
-#              data[,2]-data[,10],
-#              data[,3]-data[,10],
-#              data[,4]-data[,10],
-#              data[,5]-data[,10],
-#              data[,6]-data[,10],
-#              data[,7]-data[,10],
-#              data[,8]-data[,10],
-#              data[,9]-data[,10],
-#              data[,10]-data[,10])
-# df2 <- cbind(data[,1]-data[,4],
-#              data[,2]-data[,4],
-#              data[,3]-data[,4],
-#              data[,4]-data[,4])
-
-# df2 <- cbind(data[,1]-data[,14],
-#              data[,2]-data[,14],
-#              data[,3]-data[,14],
-#              data[,4]-data[,14],
-#              data[,5]-data[,14],
-#              data[,6]-data[,14],
-#              data[,7]-data[,14],
-#              data[,8]-data[,14],
-#              data[,9]-data[,14],
-#              data[,10]-data[,14],
-#              data[,11]-data[,14],
-#              data[,12]-data[,14],
-#              data[,13]-data[,14],
-#              data[,14]-data[,14])
-# 
-# df2[df2<0] <- 0
-# 
-# 
-# colnames(df2)<-colnames(data)
-# 
-# #heatmap(df2)
-# 
-# df2[df2 == 0] <- NA
-# 
-# df2 <- df2[,colSums(is.na(df2))<nrow(df2)]
-# df2 <- df2[!rowSums(is.na(df2)) == ncol(df2),]
-# 
-# df2[is.na(df2)] <- 0
-# #df2<-df2[,1:13]
-# summary(df2)
-# 
-# # df2<-data.matrix(df2)
-# 
-# # heatmap(df2)
-# 
-# test<-df2[ order(-df2[,1]), ]
-# test<-test[-c(1),]
-# # heatmap(test)
-# # heatmap(test,Colv=NA,labRow="")
-# 
-# # heatmap(test,Colv=NA,
-# #         labRow="",#revC=T,
-# #         margins=c(8,7),
-# #         ColSideColors = c(rep("lightblue",3),
-# #                            rep("blue",5),
-# #                            rep("darkblue",5)),
-# #         cexCol=1.8)
-# ## # 19695 # hits
+heatmap(df1,Colv=NA,labRow=NA)
 
 test<-df1[,1:54]
 # heatmap(test,Colv=NA,labRow=NA,margins=c(12,7),cexCol=0.5)
@@ -329,29 +257,3 @@ p+theme(text = element_text(size=20),
            axis.title.x = element_blank(),
            text = element_text(size=20))
   
-# vres[order(vres$virus),] 
-# 
-# ##################
-# 
-# library(gplots)
-# heatmap.2(test,dendrogram="row",labRow=NA,
-#          col=heat.colors(20),  cexCol=1,
-#          scale="col")
-# 
-# heatmap.2(test,dendrogram="row",
-#           # col=heat.colors(120),
-#           cexCol=1,scale="row",labRow=NA,
-#           density.info="none")
-# 
-# heatmap.2(test,dendrogram="row", #col=redgreen(75),
-#           scale="row", key=T, keysize=1.5,
-#           density.info="none", trace="none",cexCol=0.9, labRow=NA)
-# 
-# heatmap(test,Colv=NA,
-#         labRow="",
-#         margins=c(8,7),
-#         ColSideColors = c(rep("#80FFFFFF",3),
-#                           rep("lightgreen",5),
-#                           rep("#FF80FFFF",5)),
-#         cexCol=2,
-#         col=cm.colors(20))
